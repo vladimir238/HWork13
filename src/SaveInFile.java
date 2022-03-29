@@ -20,19 +20,22 @@ public class SaveInFile implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Запуск потока");
-        FileOutputStream fs = null;
-        try {
-            fs = new FileOutputStream(fileName);
-            PrintStream ps= new PrintStream(fs);
+        System.out.println("Запуск потока " + threadName);
+
+        try (FileOutputStream fs = new FileOutputStream(fileName);
+             PrintStream ps = new PrintStream(fs)) {
 
             for (int i = 0; i < arr.length; i++) {
-               ps.print(arr[i]+" , ");
+                ps.print(arr[i] + " , ");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+            ps.close();
+            fs.close();
 
+
+        } catch (IOException e) {
+            System.out.println("Ошибка " + e.getMessage());
+        }
+        System.out.println("End thread: " + threadName);
 
     }
 
