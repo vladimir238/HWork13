@@ -11,7 +11,7 @@ public class SaveInFile implements Runnable {
         this.arr = arr;
         this.fileName = fileName;
         this.threadName = threadName;
-        thread = new Thread(this, "SThread");
+        thread = new Thread(this);
     }
 
     public void start() {
